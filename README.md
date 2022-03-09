@@ -91,12 +91,100 @@ Consider the height and age for 11 people. On the basis of given features (‘Ag
 -------------------------------------------------------------------  
 -----------STOCK PRICE PREDICTION BY K-NEAREST NEIGHBORS-----------  
 -------------------------------------------------------------------  
-Shape of Training Set (1134, 1)
-Shape of Validation Set (377, 1)
-RMSE value on validation set: 112.9467566922719
+Shape of Training Set (1134, 1)  
+Shape of Validation Set (377, 1)  
+RMSE value on validation set: 112.9467566922719  
 -------------------------------------------------------------------  
 -------------------------------------------------------------------  
 
 ![image](https://user-images.githubusercontent.com/68769656/157385227-9788dba5-91a7-4b77-8294-474122256511.png)
+
+Observation- The RMSE value is almost similar to the linear regression model and the plot shows the same pattern. Like linear regression, kNN also identified a drop in January 2018 since that has been the pattern for the past years. We can safely say that regression algorithms have not performed well on this dataset.
+
+Let’s go ahead and look at some time series forecasting techniques to find out how they perform when faced with this stock prices prediction challenge
+
+# 4. Auto-ARIMA
+
+ARIMA is a very popular statistical method for time series forecasting. ARIMA models take into account the past values to predict the future values. There are three important parameters in ARIMA:
+
+1. p (past values used for forecasting the next value)
+2. q (past forecast errors used to predict the future values)
+3. d (order of differencing)
+
+![image](https://user-images.githubusercontent.com/68769656/157435097-0776bb98-2bad-4fd5-a653-54548207fb22.png)
+
+Parameter tuning for ARIMA consumes a lot of time. So we will use auto ARIMA which automatically selects the best combination of (p,q,d) that provides the least error. To read more about how auto ARIMA works, refer to this article: https://alkaline-ml.com/pmdarima/modules/generated/pmdarima.arima.auto_arima.html
+
+**Results of our Analysis using the Auto-ARIMA Method:**
+
+![image](https://user-images.githubusercontent.com/68769656/157435173-b79ac964-d41b-4440-83ee-437cb7567f6a.png)
+
+**Observation:** As we saw earlier, an auto ARIMA model uses past data to understand the pattern in the time series. Using these values, the model captured an increasing trend in the series. Although the predictions using this technique are far better than that of the previously implemented machine learning models, these predictions are still not close to the real values.
+
+As its evident from the plot, the model has captured a trend in the series, but does not focus on the seasonal part. In the next section, we will implement a time series model that takes both trend and seasonality of a series into account.
+
+# 5. Prophet
+
+![image](https://user-images.githubusercontent.com/68769656/157435334-68363696-92c2-40d6-95e4-7e7acef70ff8.png)
+
+There are a number of time series techniques that can be implemented on the stock prediction dataset, but most of these techniques require a lot of data preprocessing before fitting the model. Prophet, designed and pioneered by Facebook, is a time series forecasting library that requires no data preprocessing and is extremely simple to implement. The input for Prophet is a dataframe with two columns: date and target (ds and y).
+
+Prophet tries to capture the seasonality in the past data and works well when the dataset is large. Here is an interesting article that explains Prophet in a simple and intuitive manner: https://www.analyticsvidhya.com/blog/2018/05/generate-accurate-forecasts-facebook-prophet-python-r/
+
+**Results of our Analysis using the FB-Prophet Method:**
+
+----------------------------------------------------------  
+-----------STOCK PRICE PREDICTION BY FB PROPHET-----------  
+----------------------------------------------------------  
+Shape of Training Set (1134, 2)  
+Shape of Validation Set (377, 2)  
+RMSE value on validation set: 69.19405269585594  
+-----------------------------------------------------------  
+-----------------------------------------------------------  
+
+![image](https://user-images.githubusercontent.com/68769656/157435505-cade7ed6-b7c6-401e-823b-7b36f7f59854.png)
+
+**Observation-** Prophet (like most time series forecasting techniques) tries to capture the trend and seasonality from past data. This model usually performs well on time series datasets, but fails to live up to it’s reputation in this case.
+
+As it turns out, stock prices do not have a particular trend or seasonality. It highly depends on what is currently going on in the market and thus the prices rise and fall. Hence forecasting techniques like ARIMA, SARIMA and Prophet would not show good results for this particular problem.
+
+Let us go ahead and try another advanced technique – **Long Short Term Memory (LSTM)**.
+
+# 6. Long Short Term Memory
+
+Introduction
+LSTMs are widely used for sequence prediction problems and have proven to be extremely effective. The reason they work so well is because LSTM is able to store past information that is important, and forget the information that is not. LSTM has three gates:
+
+![image](https://user-images.githubusercontent.com/68769656/157435663-b4a41883-e2da-4597-9d19-fcd8c66dbc0f.png)
+
+The input gate: The input gate adds information to the cell state The forget gate: It removes the information that is no longer required by the model The output gate: Output Gate at LSTM selects the information to be shown as output For a more detailed understanding of LSTM and its architecture, you can go through the below article: https://colah.github.io/posts/2015-08-Understanding-LSTMs/
+
+Introduction to Long Short Term Memory
+For now, let us implement LSTM as a black box and check it’s performance on our particular data.
+
+**Results of our Analysis using the LSTM Method:**
+
+-----------------------------------------------------------------------------
+-----------STOCK PRICE PREDICTION BY LONG SHORT TERM MEMORY (LSTM)-----------
+-----------------------------------------------------------------------------
+Shape of Training Set (1134, 1)
+Shape of Validation Set (377, 1)
+1094/1094 - 19s - loss: 4.5201e-04
+RMSE value on validation set: Close    9.464954
+dtype: float64
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+
+![image](https://user-images.githubusercontent.com/68769656/157435972-0e950a32-ebfd-41e2-ba5f-a5a3861f3160.png)
+
+**Observation** Wow! The LSTM model can be tuned for various parameters such as changing the number of LSTM layers, adding dropout value or increasing the number of epochs. But are the predictions from LSTM enough to identify whether the stock price will increase or decrease? Certainly not!
+
+As I mentioned at the start of the article, stock price is affected by the news about the company and other factors like demonetization or merger/demerger of the companies. There are certain intangible factors as well which can often be impossible to predict beforehand.
+
+# Conclusion
+
+Time series forecasting is a very intriguing field to work with, as I have realized during my time writing these articles. There is a perception in the community that it’s a complex field, and while there is a grain of truth in there, it’s not so difficult once you get the hang of the basic techniques.
+
+I am interested in finding out how LSTM works on a different kind of time series problem and encourage you to try it out on your own as well. If you have any questions, feel free to connect with me.
 
 
