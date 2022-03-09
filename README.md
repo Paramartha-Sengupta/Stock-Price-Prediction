@@ -41,16 +41,62 @@ The predicted closing price for each day will be the average of a set of previou
 
 We will implement this technique on our dataset. The first step is to create a dataframe that contains only the Date and Close price columns, then split it into train and validation sets to verify our predictions.
 
-**Results of our Analysis using the Moving Avergae Method:**
+**Results of our Analysis using the Moving Average Method:**
 
 -----------------------------------------------------------
 -----------STOCK PRICE PREDICTION BY MOVING AVERAGE--------
 -----------------------------------------------------------
-Shape of Training Set (1134, 1)
-Shape of Validation Set (377, 1)
-RMSE value on validation set: 76.62376749929759
+Shape of Training Set (1134, 1)  
+Shape of Validation Set (377, 1)  
+RMSE value on validation set: 76.62376749929759  
 -----------------------------------------------------------
 -----------------------------------------------------------
 
 ![image](https://user-images.githubusercontent.com/68769656/157384133-cbd3b158-6b24-452a-a693-b48c863d3f66.png)
+
+# 2. Linear Regression
+
+The most basic machine learning algorithm that can be implemented on this data is linear regression. The linear regression model returns an equation that determines the relationship between the independent variables and the dependent variable.
+The equation for linear regression can be written as:
+
+![image](https://user-images.githubusercontent.com/68769656/157384333-d4cbec58-1073-4d78-925c-38eed37a14d8.png)
+
+Here, x1, x2,….xn represent the independent variables while the coefficients θ1, θ2, …. θn represent the weights. You can refer to the following article to study linear regression in more detail:
+
+A comprehensive beginners guide for Linear, Ridge and Lasso Regression. For our problem statement, we do not have a set of independent variables. We have only the dates instead. Let us use the date column to extract features like – day, month, year, mon/fri etc. and then fit a linear regression model.
+
+**Results of our Analysis using the Linear Regression Method:**
+
+-----------------------------------------------------------------  
+-----------STOCK PRICE PREDICTION BY LINEAR REGRESSION-----------  
+-----------------------------------------------------------------  
+Shape of Training Set (1134, 1)  
+Shape of Validation Set (377, 1)  
+RMSE value on validation set: 58.36609230803357  
+-----------------------------------------------------------------  
+-----------------------------------------------------------------  
+
+![image](https://user-images.githubusercontent.com/68769656/157384511-2afa2e55-cdf5-4092-b16a-df6d72e19765.png)
+
+# 3. K- Nearest Neighbors
+
+Another interesting ML algorithm that one can use here is kNN (k nearest neighbours). Based on the independent variables, kNN finds the similarity between new data points and old data points. Let me explain this with a simple example.
+
+Consider the height and age for 11 people. On the basis of given features (‘Age’ and ‘Height’), the table can be represented in a graphical format as shown below:
+
+![image](https://user-images.githubusercontent.com/68769656/157384896-6ef0c4be-4e3b-44e8-bf40-09b75ddb9d0e.png)
+
+**Results of our Analysis using the K-Nearest Neighbor Method:**
+
+-------------------------------------------------------------------  
+-----------STOCK PRICE PREDICTION BY K-NEAREST NEIGHBORS-----------  
+-------------------------------------------------------------------  
+Shape of Training Set (1134, 1)
+Shape of Validation Set (377, 1)
+RMSE value on validation set: 112.9467566922719
+-------------------------------------------------------------------  
+-------------------------------------------------------------------  
+
+![image](https://user-images.githubusercontent.com/68769656/157385227-9788dba5-91a7-4b77-8294-474122256511.png)
+
 
