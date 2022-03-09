@@ -15,3 +15,16 @@ As you might have guessed, our focus will be on the technical analysis part. We�
 
 ![image](https://user-images.githubusercontent.com/68769656/157383488-123a69b1-dfb2-47a2-af48-2dfe81aa8f31.png)
 
+# Major Points of Understanding
+
+There are multiple variables in the dataset – Date, Open, High, Low, Close and volume.
+
+The columns Open and Close represent the starting and final price at which the stock is traded on a particular day.
+
+High and Low represent the maximum and minimum price of the share for the day.
+
+Volume is the number of shares bought or sold in the day
+
+Another important thing to note is that the market is closed on weekends and public holidays.Notice the above table again, some date values are missing – 4/3/2015, 4/4/2015 and 4/5/2015. Of these dates, 3rd April 2015 was a public holiday due to the occasion of Good Friday, while 4th and 5th April were weekends
+
+The profit or loss calculation is usually determined by the closing price of a stock for the day, hence we will consider the closing price as the target variable. Let’s plot the target variable to understand how it’s shaping up in our data
